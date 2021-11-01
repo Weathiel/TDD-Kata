@@ -27,9 +27,20 @@ public class LibraryCachingTest {
     private LibraryRepository libraryRepository;
 
     @Test
-    public void whenGetCarByName_FindByNameCalled1Time() throws Exception{
+    public void whenGetCarByNameTwoTimes_FindByNameCalled1Time() throws Exception{
         given(libraryRepository.findByName(anyString())).willReturn(new Library());
 
+        libraryService.getLibraryByName("libok");
+        libraryService.getLibraryByName("libok");
+
+        verify(libraryRepository, times(1)).findByName("libok");
+    }
+
+    @Test
+    public void whenGetCarByNameThreeTimes_FindByNameCalled1Time() throws Exception{
+        given(libraryRepository.findByName(anyString())).willReturn(new Library());
+
+        libraryService.getLibraryByName("libok");
         libraryService.getLibraryByName("libok");
         libraryService.getLibraryByName("libok");
 
