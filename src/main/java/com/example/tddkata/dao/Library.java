@@ -14,12 +14,16 @@ public class Library {
     @GeneratedValue
     public Long id;
 
-    public String name;
-    public boolean isPrivate = false;
+    private String name;
+    private boolean isPrivate = false;
 
     public Library(String name, boolean isPrivate){
         this.name = name;
         this.isPrivate = isPrivate;
+    }
+
+    public Library() {
+
     }
 
     public String getName() {

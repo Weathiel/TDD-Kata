@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -18,12 +19,15 @@ public class LibraryRepositoryTest {
     @Autowired
     private LibraryRepository libraryRepository;
 
+    @Autowired
+    private TestEntityManager testEntityManager;
+
     @Test
     public void whenFindByName_ReturnsLibrary(){
-
+        Library flushLibrary = testEntityManager.persistFlushFind(new Library("libok", false));
         Library library = libraryRepository.findByName("libok");
 
-        Assertions.assertThat(library.getName()).isEqualTo("libok");
-        Assertions.assertThat(library.isPrivate()).isEqualTo(false);
+        Assertions.assertThat(library.getName()).isEqualTo(flushLibrary.getName());
+        Assertions.assertThat(library.isPrivate()).isEqualTo(flushLibrary.isPrivate());
     }
 }

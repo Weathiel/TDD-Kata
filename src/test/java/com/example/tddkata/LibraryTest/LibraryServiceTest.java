@@ -28,7 +28,7 @@ public class LibraryServiceTest {
     private LibraryService libraryService;
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp(){
         libraryService = new LibraryService(libraryRepository);
     }
 
