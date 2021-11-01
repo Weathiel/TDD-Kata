@@ -41,4 +41,14 @@ public class LibraryServiceTest {
         Assertions.assertThat(library.isPrivate()).isEqualTo(false);
     }
 
+    @Test
+    public void whenGetLibraryByName2_ReturnLibrary(){
+        given(libraryRepository.findByName(anyString())).willReturn(new Library("bookstore", true));
+
+        Library library = libraryService.getLibraryByName("bookstore");
+
+        Assertions.assertThat(library.getName()).isEqualTo("bookstore");
+        Assertions.assertThat(library.isPrivate()).isEqualTo(true);
+    }
+
 }
