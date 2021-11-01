@@ -23,6 +23,6 @@ public class LibraryControllerIntegrationTest {
 
         ResponseEntity<Library> responseEntity = restTemplate.getForEntity("/library/numbus", Library.class);
 
-        Assertions.assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
+        Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 }
