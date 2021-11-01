@@ -1,6 +1,7 @@
 package com.example.tddkata.LibraryTest;
 
 import com.example.tddkata.dao.Library;
+import com.example.tddkata.exception.LibraryNotFoundException;
 import com.example.tddkata.repository.LibraryRepository;
 import com.example.tddkata.service.LibraryService;
 import org.assertj.core.api.Assertions;
@@ -49,6 +50,13 @@ public class LibraryServiceTest {
 
         Assertions.assertThat(library.getName()).isEqualTo("bookstore");
         Assertions.assertThat(library.isPrivate()).isEqualTo(true);
+    }
+
+    @Test(expected = LibraryNotFoundException.class)
+    public void whenGetLibraryByName_ReturnNotFound(){
+        given(libraryRepository.findByName(anyString())).willReturn(null);
+
+        libraryService.getLibraryByName("bookstore");
     }
 
 }
