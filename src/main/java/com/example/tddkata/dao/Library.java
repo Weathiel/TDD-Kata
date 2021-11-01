@@ -7,8 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
+@Entity
 public class Library {
+
+    @Id
+    @GeneratedValue
+    public Long id;
 
     public String name;
     public boolean isPrivate = false;
