@@ -1,7 +1,8 @@
 package com.example.tddkata;
 
+import com.example.tddkata.dao.Library;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class IntegrationTest {
+public class LibraryControllerIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -20,7 +21,7 @@ public class IntegrationTest {
     @Test
     public void whenGetLibraryByNameReturnOK() throws Exception {
 
-        ResponseEntity<Library> responseEntity = restTemplate.getForEntity("/library/numbus");
+        ResponseEntity<Library> responseEntity = restTemplate.getForEntity("/library/numbus", Library.class);
 
         Assertions.assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
     }
