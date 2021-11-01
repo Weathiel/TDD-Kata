@@ -2,6 +2,7 @@ package com.example.tddkata.LibraryTest;
 
 import com.example.tddkata.controller.LibraryController;
 import com.example.tddkata.dao.Library;
+import com.example.tddkata.exception.LibraryNotFoundException;
 import com.example.tddkata.service.LibraryService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,5 +47,13 @@ public class LibraryControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("name").value("bookstore"))
                 .andExpect(jsonPath("isPrivate").value(true));
+    }
+
+    @Test
+    public void whenGetLibraryByName_ReturnNotFoundException() throws Exception{
+        given(libraryService.getLibraryByName(anyString())).willThrow(new LibraryNotFoundException());
+
+        mvc.perform(MockMvcRequestBuilders.get("/library/notfound"))
+                .andExpect(status().isNotFound());
     }
 }
