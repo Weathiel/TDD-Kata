@@ -1,12 +1,11 @@
 package com.example.tddkata.controller;
 
 import com.example.tddkata.dao.Library;
+import com.example.tddkata.exception.LibraryNotFoundException;
 import com.example.tddkata.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/library")
@@ -21,5 +20,10 @@ public class LibraryController {
     @GetMapping("/{name}")
     public Library getLibraryByName(@PathVariable String name){
         return libraryService.getLibraryByName(name);
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    private void libraryNotFoundHandler(LibraryNotFoundException ex){
     }
 }
