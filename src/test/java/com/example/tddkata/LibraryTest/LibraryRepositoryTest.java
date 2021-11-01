@@ -23,7 +23,7 @@ public class LibraryRepositoryTest {
     private TestEntityManager testEntityManager;
 
     @Test
-    public void whenFindByName_ReturnsLibrary(){
+    public void whenFindByName_ReturnsLibrary() {
         Library flushLibrary = testEntityManager.persistFlushFind(new Library("libok", false));
         Library library = libraryRepository.findByName("libok");
 
@@ -32,11 +32,31 @@ public class LibraryRepositoryTest {
     }
 
     @Test
-    public void whenFindByName2_ReturnsLibrary(){
+    public void whenFindByName2_ReturnsLibrary() {
         Library flushLibrary = testEntityManager.persistFlushFind(new Library("bookstore", true));
         Library library = libraryRepository.findByName("bookstore");
 
         Assertions.assertThat(library.getName()).isEqualTo(flushLibrary.getName());
         Assertions.assertThat(library.isPrivate()).isEqualTo(flushLibrary.isPrivate());
+    }
+
+    @Test
+    public void whenFindByName_ReturnsDiffrentLibrary() {
+        Library flushLibrary = testEntityManager.persistFlushFind(new Library("bookstore", true));
+        Library diffrentFlushedLibrary = testEntityManager.persistFlushFind(new Library("libok", false));
+        Library library = libraryRepository.findByName("bookstore");
+
+        Assertions.assertThat(library.getName()).isNotEqualTo(diffrentFlushedLibrary.getName());
+        Assertions.assertThat(library.isPrivate()).isNotEqualTo(diffrentFlushedLibrary.isPrivate());
+    }
+
+    @Test
+    public void whenFindByName2_ReturnsDiffrentLibrary() {
+        Library diffrentFlushedLibrary = testEntityManager.persistFlushFind(new Library("bookstore", true));
+        Library flushedLibrary = testEntityManager.persistFlushFind(new Library("libok", false));
+        Library library = libraryRepository.findByName("libok");
+
+        Assertions.assertThat(library.getName()).isNotEqualTo(diffrentFlushedLibrary.getName());
+        Assertions.assertThat(library.isPrivate()).isNotEqualTo(diffrentFlushedLibrary.isPrivate());
     }
 }
