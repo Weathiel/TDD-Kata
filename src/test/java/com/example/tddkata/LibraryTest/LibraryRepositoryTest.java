@@ -30,4 +30,13 @@ public class LibraryRepositoryTest {
         Assertions.assertThat(library.getName()).isEqualTo(flushLibrary.getName());
         Assertions.assertThat(library.isPrivate()).isEqualTo(flushLibrary.isPrivate());
     }
+
+    @Test
+    public void whenFindByName2_ReturnsLibrary(){
+        Library flushLibrary = testEntityManager.persistFlushFind(new Library("bookstore", true));
+        Library library = libraryRepository.findByName("bookstore");
+
+        Assertions.assertThat(library.getName()).isEqualTo(flushLibrary.getName());
+        Assertions.assertThat(library.isPrivate()).isEqualTo(flushLibrary.isPrivate());
+    }
 }
