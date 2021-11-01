@@ -1,4 +1,4 @@
-package com.example.tddkata;
+package com.example.tddkata.LibraryTest;
 
 import com.example.tddkata.dao.Library;
 import org.junit.jupiter.api.Assertions;
@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class LibraryControllerIntegrationTest {
+public class LibraryIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -21,7 +21,7 @@ public class LibraryControllerIntegrationTest {
     @Test
     public void whenGetLibraryByNameReturnOK() throws Exception {
 
-        ResponseEntity<Library> responseEntity = restTemplate.getForEntity("/library/numbus", Library.class);
+        ResponseEntity<Library> responseEntity = restTemplate.getForEntity("/library/libok", Library.class);
 
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
